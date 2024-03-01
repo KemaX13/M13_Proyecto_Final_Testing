@@ -1,13 +1,14 @@
 using UnityEngine;
 using FSM;
 
-internal class CharactersController : MonoBehaviour {
+internal abstract class CharactersController : MonoBehaviour {
     #region SerializeField Variables
     [Header("States")]
     //[SerializeField] States[] states;
 
     [Header("Movement")]
-    [SerializeField] protected float velocity = 4f;
+    [SerializeField] protected float velocity = 10f;
+    [Range(0, 100), SerializeField] int gravityMul = 5;
 
     [Header("Orientation")]
     [SerializeField] protected float velocityRot = 4f; //Velocity rotation
@@ -17,9 +18,10 @@ internal class CharactersController : MonoBehaviour {
     protected CharacterController cc;
 
     protected Vector3 currentVel; //Direction
+    protected Vector3 appliedVel;
 
-    float gravity;
-    float gravityMul = 1f;
+    protected float gravity;
+    protected float gravityPercentage;
 
     float angVel; //Angular velocity
     #endregion
@@ -31,10 +33,12 @@ internal class CharactersController : MonoBehaviour {
     protected virtual void Start() {
         gravity = Physics.gravity.y;
         angVel = 360 * velocityRot;
+
+        gravityPercentage = gravityMul * gravity / 100;
     }
 
     public void Movement() {
-        cc.Move(currentVel * Time.fixedDeltaTime);
+        cc.Move(appliedVel * Time.deltaTime);
     }
 
     public void Orientation() {
@@ -53,10 +57,5 @@ internal class CharactersController : MonoBehaviour {
         Quaternion rotToApply = Quaternion.AngleAxis(ang, Vector3.up);
 
         transform.rotation = rotToApply * transform.rotation;
-    }
-
-    public void Gravity() {
-        if(!cc.isGrounded)
-            cc.Move(Vector3.up * gravity * gravityMul * Time.fixedDeltaTime);
     }
 }
