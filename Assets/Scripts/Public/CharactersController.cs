@@ -3,11 +3,8 @@ using FSM;
 
 internal abstract class CharactersController : MonoBehaviour {
     #region SerializeField Variables
-    [Header("States")]
-    //[SerializeField] States[] states;
-
     [Header("Movement")]
-    [SerializeField] protected float velocity = 10f;
+    [SerializeField] protected float velocity = 5f;
     [Range(0, 100), SerializeField] int gravityMul = 5;
 
     [Header("Orientation")]
