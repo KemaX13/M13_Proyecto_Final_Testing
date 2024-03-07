@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Windows;
 
 internal partial class PlayerController : EntityController {
     #region SerializeField Variables
@@ -10,6 +9,7 @@ internal partial class PlayerController : EntityController {
     [SerializeField] float maxJumpTime = .5f;
     [SerializeField] float antiGravityTime = .2f;
     [SerializeField] float fallMulti = 2f;
+    [SerializeField] string jumpableWall;
     #endregion
 
     #region Private Variables
@@ -18,6 +18,7 @@ internal partial class PlayerController : EntityController {
     float antiGravitycurrentTime;
     float innitialPoint;
     bool isJumpPressed;
+    bool isTouchingWall;
     #endregion
 
     void StartJump() {
@@ -29,32 +30,33 @@ internal partial class PlayerController : EntityController {
     }
 
     void UpdateVerticalMovement() {
-        if(jump.action.WasPerformedThisFrame() && remainingJump > 0) {
-            remainingJump--;
-            antiGravitycurrentTime = 0;
-            innitialPoint = transform.position.y;
-            currentVel.y = innitJumpVel;
-            appliedVel.y = innitJumpVel;
-        }
+        if(!jump.action.WasPerformedThisFrame() || remainingJump <= 0)
+            return;
+
+        remainingJump--;
+        antiGravitycurrentTime = 0;
+        innitialPoint = transform.position.y;
+        currentVel.y = innitJumpVel;
+        appliedVel.y = innitJumpVel;
     }
 
     public void Gravity() {
-        if(cc.isGrounded) {
-            currentVel.y = gravityPercentage; //velY = gravity * 5%
+        if(cc.isGrounded || (cc.collisionFlags == CollisionFlags.Sides && isTouchingWall)) {
+            currentVel.y = gravityPercentage;
             appliedVel.y = gravityPercentage;
             remainingJump = jumpUses;
         } else if(transform.position.y >= maxJumpHeight + innitialPoint && antiGravitycurrentTime <= antiGravityTime && isJumpPressed) {
-            currentVel.y = 0; //velY = gravity = 0
+            currentVel.y = 0;
             appliedVel.y = 0;
             antiGravitycurrentTime += Time.deltaTime;
-        } else if(currentVel.y <= 0 || !isJumpPressed) {
-            float previousYVel = currentVel.y;
-            currentVel.y = currentVel.y + (gravity * fallMulti * Time.deltaTime); //velY = gravity * ?% * tiempo
-            appliedVel.y = Mathf.Max((previousYVel + currentVel.y) * .5f, -20f);
         } else {
+            float tempGravity = gravity * Time.deltaTime;
             float previousYVel = currentVel.y;
-            currentVel.y = currentVel.y + (gravity * Time.deltaTime);
-            appliedVel.y = (previousYVel + currentVel.y) * .5f;
+
+            if(currentVel.y <= 0 || !isJumpPressed) currentVel.y += tempGravity * fallMulti;
+            else currentVel.y += tempGravity;
+
+            appliedVel.y = Mathf.Max((previousYVel + currentVel.y) * 0.5f, -20f);
         }
     }
 
