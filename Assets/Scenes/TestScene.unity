@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1539,7 +1539,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 843917360}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.023088228, y: 0.004474222, z: 0.00010333043, w: 0.99972343}
+  m_LocalRotation: {x: -0.02308824, y: 0.004474217, z: 0.00010333037, w: 0.99972343}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1843,15 +1843,16 @@ MonoBehaviour:
   velocity: 5
   gravityMul: 5
   velocityRot: 4
-  jumpUses: 1
-  maxJumpHeight: 2
-  maxJumpTime: 0.5
-  antiGravityTime: 0.2
-  maxDashLegth: 6
-  maxDashTime: 1.2
   move: {fileID: -423746658541759731, guid: a30bdbd6d3410204f928aead5781c2e8, type: 3}
   jump: {fileID: 6123673271881735320, guid: a30bdbd6d3410204f928aead5781c2e8, type: 3}
   dash: {fileID: -2493761345648780737, guid: a30bdbd6d3410204f928aead5781c2e8, type: 3}
+  maxDashLegth: 6
+  maxDashTime: 1.2
+  jumpUses: 2
+  maxJumpHeight: 2
+  maxJumpTime: 0.5
+  antiGravityTime: 0.2
+  fallMulti: 1.5
 --- !u!143 &939654530
 CharacterController:
   m_ObjectHideFlags: 0

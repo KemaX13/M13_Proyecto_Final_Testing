@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-internal partial class PlayerController : CharactersController {
+internal partial class PlayerController : EntityController {
     #region SerializeField Variables
     [Header("Dash")]
     [SerializeField] float maxDashLegth = 2f;

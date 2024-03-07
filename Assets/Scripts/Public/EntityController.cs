@@ -1,7 +1,7 @@
 using UnityEngine;
 using FSM;
 
-internal abstract class CharactersController : MonoBehaviour {
+internal abstract class EntityController : MonoBehaviour {
     #region SerializeField Variables
     [Header("Movement")]
     [SerializeField] protected float velocity = 5f;

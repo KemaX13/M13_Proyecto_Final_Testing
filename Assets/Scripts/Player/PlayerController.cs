@@ -1,6 +1,6 @@
 using UnityEngine;
 
-internal partial class PlayerController : CharactersController {
+internal partial class PlayerController : EntityController {
     protected override void Awake() {
         base.Awake();
 
@@ -13,18 +13,6 @@ internal partial class PlayerController : CharactersController {
         StartInput();
         StartDash();
         StartJump();
-    }
-
-    void OnEnable() {
-        move.action.Enable();
-        jump.action.Enable();
-        dash.action.Enable();
-    }
-
-    void OnDisable() {
-        move.action.Disable();
-        jump.action.Disable();
-        dash.action.Disable();
     }
 
     void Update() {
