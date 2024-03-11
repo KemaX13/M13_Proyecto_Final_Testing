@@ -5,10 +5,9 @@ internal abstract class EntityController : MonoBehaviour {
     #region SerializeField Variables
     [Header("Movement")]
     [SerializeField] protected float velocity = 5f;
-    [Range(0, 100), SerializeField] int gravityMul = 5;
 
     [Header("Orientation")]
-    [SerializeField] protected float velocityRot = 4f; //Velocity rotation
+    [SerializeField] protected float velocityRotation = 4f;
     #endregion
 
     #region Private Variables
@@ -16,9 +15,6 @@ internal abstract class EntityController : MonoBehaviour {
 
     protected Vector3 currentVel; //Direction
     protected Vector3 appliedVel;
-
-    protected float gravity;
-    protected float gravityPercentage;
 
     float angVel; //Angular velocity
     #endregion
@@ -28,10 +24,7 @@ internal abstract class EntityController : MonoBehaviour {
     }
 
     protected virtual void Start() {
-        gravity = Physics.gravity.y;
-        angVel = 360 * velocityRot;
-
-        gravityPercentage = gravityMul * gravity / 100;
+        angVel = 360 * velocityRotation;
     }
 
     public void Movement() {

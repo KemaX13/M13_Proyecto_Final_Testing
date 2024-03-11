@@ -13,6 +13,7 @@ internal partial class PlayerController : EntityController {
         StartInput();
         StartDash();
         StartJump();
+        StartAnimations();
     }
 
     void Update() {
@@ -24,5 +25,7 @@ internal partial class PlayerController : EntityController {
 
         Gravity();
         UpdateVerticalMovement();
+
+        UpdateAnim();
     }
 }
