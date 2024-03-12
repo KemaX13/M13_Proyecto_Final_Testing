@@ -12,10 +12,12 @@ internal partial class PlayerController : EntityController {
     [SerializeField] float maxJumpTime = .5f;
     [SerializeField] float antiGravityTime = .2f;
     [SerializeField] float fallMultiplier = 2f;
+    [SerializeField] string jumpTriggerName;
 
     [Header("Wall Collision")]
     [SerializeField] string jumpableWall;
     [SerializeField] float wallTimeAttach;
+    [SerializeField] float wallValueMultiplier;
     [SerializeField] float capsuleRadius;
     [SerializeField] LayerMask jumpableWallMask;
     #endregion
@@ -28,6 +30,7 @@ internal partial class PlayerController : EntityController {
     float innitJumpVel;
     float antiGravitycurrentTime;
     float innitialPoint;
+    float maxJumpHeightRelative;
 
     bool isJumpPressed;
     bool isWallColliding;
@@ -55,13 +58,12 @@ internal partial class PlayerController : EntityController {
             return;
 
         remainingJump--;
-        antiGravitycurrentTime = 0;
-        wallCurrentTimeAttach = 0;
-        isWallColliding = false;
+        antiGravitycurrentTime = wallCurrentTimeAttach = 0;
         innitialPoint = transform.position.y;
-        anim.SetTrigger(jumpTriggerName);
-        currentVel.y = isWallColliding ? innitJumpVel * 2 : innitJumpVel;
-        appliedVel.y = isWallColliding ? innitJumpVel * 2 : innitJumpVel;
+        maxJumpHeightRelative = isWallColliding ? maxJumpHeight * wallValueMultiplier : maxJumpHeight;
+        currentVel.y = appliedVel.y = isWallColliding ? innitJumpVel * wallValueMultiplier : innitJumpVel;
+        isWallColliding = false;
+        SetAnimTrigger(jumpTriggerName);
     }
 
     public void Gravity() {
@@ -69,17 +71,14 @@ internal partial class PlayerController : EntityController {
         Collider[] colliders = Physics.OverlapCapsule(currentPos + lowPoint, currentPos + highPoint, capsuleRadius, jumpableWallMask);
 
         if(cc.isGrounded) {
-            currentVel.y = gravityGrounded;
-            appliedVel.y = gravityGrounded;
+            currentVel.y = appliedVel.y = gravityGrounded;
             remainingJump = jumpUses;
         } else if(isWallColliding && wallCurrentTimeAttach <= wallTimeAttach && colliders.Length > 0) {
-            currentVel.y = 0;
-            appliedVel.y = 0;
+            currentVel.y = appliedVel.y = 0;
             remainingJump = jumpUses;
             wallCurrentTimeAttach += Time.deltaTime;
-        } else if(currentPos.y >= maxJumpHeight + innitialPoint && antiGravitycurrentTime <= antiGravityTime && isJumpPressed) {
-            currentVel.y = 0;
-            appliedVel.y = 0;
+        } else if(currentPos.y >= maxJumpHeightRelative + innitialPoint && antiGravitycurrentTime <= antiGravityTime && isJumpPressed) {
+            currentVel.y = appliedVel.y = 0;
             antiGravitycurrentTime += Time.deltaTime;
         } else {
             float tempGravity = gravity * Time.deltaTime;
@@ -90,6 +89,8 @@ internal partial class PlayerController : EntityController {
 
             appliedVel.y = Mathf.Max((previousYVel + currentVel.y) * 0.5f, -20f);
         }
+
+        SetAnimValue(verticalVelocityName, cc.isGrounded ? 0 : appliedVel.y);
     }
 
     void OnJump(InputAction.CallbackContext input) {
