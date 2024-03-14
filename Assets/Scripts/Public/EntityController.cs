@@ -76,5 +76,5 @@ internal abstract partial class EntityController : MonoBehaviour {
     }
     #endregion
 
-    protected abstract void Attack();
+    protected abstract void UpdateCombat();
 }

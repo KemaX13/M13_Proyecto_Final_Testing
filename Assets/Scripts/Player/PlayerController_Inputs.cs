@@ -18,9 +18,6 @@ internal partial class PlayerController : EntityController {
 
         lightAttack.action.Enable();
         heavyAttack.action.Enable();
-
-        lightAttack.action.performed += LightAttack;
-        heavyAttack.action.performed += HeavyAttack;
     }
 
     void OnDisable() {
@@ -30,9 +27,6 @@ internal partial class PlayerController : EntityController {
 
         lightAttack.action.Disable();
         heavyAttack.action.Disable();
-
-        lightAttack.action.performed -= LightAttack;
-        heavyAttack.action.performed -= HeavyAttack;
     }
 
     void StartInput() {
@@ -41,5 +35,8 @@ internal partial class PlayerController : EntityController {
 
         dash.action.started += OnSprint;
         dash.action.canceled += OnSprint;
+
+        lightAttack.action.started += TriggerAttack;
+        heavyAttack.action.started += TriggerAttack;
     }
 }

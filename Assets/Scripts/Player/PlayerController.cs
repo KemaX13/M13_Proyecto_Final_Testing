@@ -24,5 +24,7 @@ internal partial class PlayerController : EntityController {
 
         Gravity();
         UpdateVerticalMovement();
+
+        UpdateCombat();
     }
 }

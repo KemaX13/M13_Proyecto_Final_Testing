@@ -702,7 +702,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!23 &415403395
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -964,7 +964,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 424735028}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.13285345, y: 0.008182612, z: -0.0010968484, w: 0.9911013}
+  m_LocalRotation: {x: 0.13285345, y: 0.008182578, z: -0.0010968437, w: 0.9911013}
   m_LocalPosition: {x: -0.13208799, y: 2.5, z: -7.9989095}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1129,18 +1129,6 @@ PrefabInstance:
       value: 6
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2991f8d4fb8075f4088c6be6e52bd9c5, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.8
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 2991f8d4fb8075f4088c6be6e52bd9c5, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.8
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 2991f8d4fb8075f4088c6be6e52bd9c5, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.8
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 2991f8d4fb8075f4088c6be6e52bd9c5, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -1158,15 +1146,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2991f8d4fb8075f4088c6be6e52bd9c5, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2991f8d4fb8075f4088c6be6e52bd9c5, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2991f8d4fb8075f4088c6be6e52bd9c5, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2991f8d4fb8075f4088c6be6e52bd9c5, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1179,10 +1167,6 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 2991f8d4fb8075f4088c6be6e52bd9c5, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 2991f8d4fb8075f4088c6be6e52bd9c5, type: 3}
-      propertyPath: m_ConstrainProportionsScale
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8183481454299698827, guid: 2991f8d4fb8075f4088c6be6e52bd9c5, type: 3}
       propertyPath: m_Layer
@@ -1975,7 +1959,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 843917360}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.02308768, y: 0.0082535865, z: 0.00019061347, w: 0.99969935}
+  m_LocalRotation: {x: -0.023087667, y: 0.008253587, z: 0.00019061335, w: 0.99969935}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2383,12 +2367,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   velocity: 5
   velocityRotation: 4
+  attackTime: 0
   velocityName: PlaneVelocity
   verticalVelocityName: VerticalVelocity
-  jumpTriggerName: isJumping
+  attackTriggerName: Attack
+  lightBoolName: LightAttack
+  heavyBoolName: HeavyAttack
+  responceTime: 2
   move: {fileID: -423746658541759731, guid: a30bdbd6d3410204f928aead5781c2e8, type: 3}
   jump: {fileID: 6123673271881735320, guid: a30bdbd6d3410204f928aead5781c2e8, type: 3}
   dash: {fileID: -2493761345648780737, guid: a30bdbd6d3410204f928aead5781c2e8, type: 3}
+  lightAttack: {fileID: -8351694659721285845, guid: a30bdbd6d3410204f928aead5781c2e8, type: 3}
+  heavyAttack: {fileID: -8239702405802691351, guid: a30bdbd6d3410204f928aead5781c2e8, type: 3}
   maxDashLegth: 5
   maxDashTime: 1.2
   gravityPercentage: 5
@@ -2397,6 +2387,7 @@ MonoBehaviour:
   maxJumpTime: 0.5
   antiGravityTime: 0.2
   fallMultiplier: 1.25
+  jumpTriggerName: isJumping
   jumpableWall: JumpableWall
   wallTimeAttach: 1
   wallValueMultiplier: 2
@@ -2622,7 +2613,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1022520844}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.13285342, y: 0.008182603, z: -0.0010968472, w: 0.9911013}
+  m_LocalRotation: {x: 0.13285342, y: 0.008182585, z: -0.001096845, w: 0.9911013}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2647,7 +2638,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!23 &1123118956
 MeshRenderer:
   m_ObjectHideFlags: 0

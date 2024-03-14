@@ -3,27 +3,25 @@ using UnityEngine.InputSystem;
 
 internal partial class PlayerController : EntityController {
     #region SerializeField Variables
-    [Header("AttackType")]
-    [SerializeField] protected string lightBoolName;
-    [SerializeField] protected string heavyBoolName;
+    [Header("Attack Type")]
+    [SerializeField] string lightBoolName;
+    [SerializeField] string heavyBoolName;
+    [SerializeField] float responceTime;
     #endregion
 
     #region Private Params
     float attackCurrentTime;
     #endregion
 
-    protected override void Attack() {
+    protected override void UpdateCombat() {
         attackCurrentTime -= Time.deltaTime;
 
-        //SetAnimBool(lightBoolName, lightAttackPerformed);
-        //SetAnimBool(heavyBoolName, heavyAttackPerformed);
+        SetAnimBool(lightBoolName, lightAttack.action.WasPerformedThisFrame() && attackCurrentTime > 0); Debug.Log(lightAttack.action.WasPerformedThisFrame() && attackCurrentTime > 0);
+        SetAnimBool(heavyBoolName, heavyAttack.action.WasPerformedThisFrame() && attackCurrentTime > 0);
     }
 
-    void LightAttack(InputAction.CallbackContext input) {
+    void TriggerAttack(InputAction.CallbackContext input) {
         SetAnimTrigger(attackTriggerName);
-    }
-
-    void HeavyAttack(InputAction.CallbackContext input) {
-        SetAnimTrigger(attackTriggerName);
+        attackCurrentTime = responceTime;
     }
 }
