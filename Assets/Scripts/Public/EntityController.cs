@@ -19,7 +19,7 @@ internal abstract partial class EntityController : MonoBehaviour {
 
     #region Private Variables
     protected CharacterController cc;
-    Animator anim;
+    protected AnimationController anim;
 
     protected Vector3 currentVel; //Direction
     protected Vector3 appliedVel;
@@ -34,13 +34,13 @@ internal abstract partial class EntityController : MonoBehaviour {
     protected virtual void Start() {
         angVel = 360 * velocityRotation;
 
-        anim = GetComponentInChildren<Animator>();
+        anim = GetComponentInChildren<AnimationController>();
     }
 
     #region Movement
     protected void Movement() {
         cc.Move(appliedVel * Time.deltaTime);
-        SetAnimValue(velocityName, Mathf.Abs(appliedVel.x) + Mathf.Abs(appliedVel.z));
+        anim.SetAnimValue(velocityName, Mathf.Abs(appliedVel.x) + Mathf.Abs(appliedVel.z));
     }
 
     protected void Orientation() {
@@ -59,20 +59,6 @@ internal abstract partial class EntityController : MonoBehaviour {
         Quaternion rotToApply = Quaternion.AngleAxis(ang, Vector3.up);
 
         transform.rotation = rotToApply * transform.rotation;
-    }
-    #endregion
-
-    #region Animations
-    protected void SetAnimValue(string name, float value) {
-        anim.SetFloat(name, value);
-    }
-
-    protected void SetAnimTrigger(string name) {
-        anim.SetTrigger(name);
-    }
-
-    protected void SetAnimBool(string name, bool isTrue) {
-        anim.SetBool(name, isTrue);
     }
     #endregion
 

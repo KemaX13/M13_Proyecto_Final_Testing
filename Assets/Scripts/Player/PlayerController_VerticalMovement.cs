@@ -63,7 +63,7 @@ internal partial class PlayerController : EntityController {
         maxJumpHeightRelative = isWallColliding ? maxJumpHeight * wallValueMultiplier : maxJumpHeight;
         currentVel.y = appliedVel.y = isWallColliding ? innitJumpVel * wallValueMultiplier : innitJumpVel;
         isWallColliding = false;
-        SetAnimTrigger(jumpTriggerName);
+        anim.SetAnimTrigger(jumpTriggerName);
     }
 
     public void Gravity() {
@@ -90,7 +90,7 @@ internal partial class PlayerController : EntityController {
             appliedVel.y = Mathf.Max((previousYVel + currentVel.y) * 0.5f, -20f);
         }
 
-        SetAnimValue(verticalVelocityName, cc.isGrounded ? 0 : appliedVel.y);
+        anim.SetAnimValue(verticalVelocityName, cc.isGrounded ? 0 : appliedVel.y);
     }
 
     void OnJump(InputAction.CallbackContext input) {
