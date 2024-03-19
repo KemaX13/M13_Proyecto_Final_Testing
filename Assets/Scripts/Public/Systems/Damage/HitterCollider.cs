@@ -2,16 +2,16 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
-internal class HitCollider : MonoBehaviour {
+internal class HitterCollider : MonoBehaviour {
     [SerializeField] string[] hittableTags;
-    [SerializeField] UnityEvent<HitCollider, HurtCollider> onHitDelivered;
+    [SerializeField] UnityEvent<HitterCollider, HitCollider> onHitDelivered;
 
     void OnTriggerEnter(Collider other) => OnHit(other);
 
     void OnCollisionEnter(Collision collision) => OnHit(collision.collider);
 
     void OnHit(Collider other) {
-        HurtCollider hC = other.GetComponent<HurtCollider>();
+        HitCollider hC = other.GetComponent<HitCollider>();
 
         if(hC != null && CheckTag(other)) {
             hC.NotifyHit(this);
