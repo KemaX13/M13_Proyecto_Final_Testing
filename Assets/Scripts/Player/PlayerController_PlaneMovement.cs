@@ -32,14 +32,10 @@ internal partial class PlayerController : EntityController {
         forward.Normalize();
 
         Vector3 moveXZ = forward * dir.y + mainCamera.transform.right.normalized * dir.x;
-
         finalDashSpeed = Mathf.Max(1f, (finalDashSpeed + acceleration * Time.deltaTime));
 
-        currentVel.x = moveXZ.x * velocity * finalDashSpeed;
-        currentVel.z = moveXZ.z * velocity * finalDashSpeed;
-
-        appliedVel.x = currentVel.x;
-        appliedVel.z = currentVel.z;
+        appliedVel.x = currentVel.x = moveXZ.x * velocity * finalDashSpeed;
+        appliedVel.z = currentVel.z = moveXZ.z * velocity * finalDashSpeed;
     }
 
     void Dash() {

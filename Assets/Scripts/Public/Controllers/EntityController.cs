@@ -8,9 +8,6 @@ internal abstract partial class EntityController : MonoBehaviour {
     [Header("Orientation")]
     [SerializeField] protected float velocityRotation = 4f;
 
-    [Header("Combat")]
-    [SerializeField] float attackTime;
-
     [Header("Animations")]
     [SerializeField] protected string velocityName;
     [SerializeField] protected string verticalVelocityName;
@@ -40,7 +37,7 @@ internal abstract partial class EntityController : MonoBehaviour {
     #region Movement
     protected void Movement() {
         cc.Move(appliedVel * Time.deltaTime);
-        anim.SetAnimValue(velocityName, Mathf.Abs(appliedVel.x) + Mathf.Abs(appliedVel.z));
+        //anim.SetAnimValue(velocityName, Mathf.Abs(appliedVel.x) + Mathf.Abs(appliedVel.z));
     }
 
     protected void Orientation() {
@@ -61,6 +58,4 @@ internal abstract partial class EntityController : MonoBehaviour {
         transform.rotation = rotToApply * transform.rotation;
     }
     #endregion
-
-    protected abstract void UpdateCombat();
 }
